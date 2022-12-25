@@ -1,0 +1,3 @@
+declare: llint a = 1000
+declare: llint b = 12
+delete: a

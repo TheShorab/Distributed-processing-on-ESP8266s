@@ -1,0 +1,22 @@
+
+function: pow(llint base, int exponent) llint 
+{
+    declare: llint result = 1
+
+    loop: int i = 0 up_to exponent, step = 1 
+    {
+        result = result * base
+    }
+
+    return: result
+}
+
+declare: llint res = 0
+declare: llint base = 2
+declare: int exponent = 3
+
+invoke: res = pow(base, exponent)
+
+print: res
+///:not implemented yet.
+///:print(res)

@@ -1,0 +1,18 @@
+function: factorial(llint number)
+{
+    if: number <= 1
+    {
+        return: 1
+    }
+
+    declare: llint nextFact
+    declare: llint newNumber = number - 1
+    invoke: nextFact = factorial(newNumber)
+    delete: newNumber
+    return: nextFact * number
+}
+
+declare: llint input = 5
+declare: llint fact
+invoke: fact = factorial(input)
+delete: input

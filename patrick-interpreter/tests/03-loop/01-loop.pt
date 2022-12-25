@@ -1,0 +1,28 @@
+declare: lint result = 0 
+declare: lint mode = -1
+
+///: loop 1 true
+///: if 1 true
+///: else 0 false
+
+loop: lint i = 0 up_to_eq 3, step = 1
+{
+    mode = i % 2
+    
+    if: mode == 0
+    {
+        declare: int resMode = result % 2
+        if: resMode == 0
+        {
+            result = result + 1
+        }
+        else:
+        {
+            result = result + 2
+        }
+    } 
+    else:
+    {
+        result = result + 3
+    }
+}
