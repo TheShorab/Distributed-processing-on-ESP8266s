@@ -95,13 +95,13 @@ public:
         std::string copy = trim_copy(command);
 
         if(keyword.empty()){
-
             const auto index = copy.find('=');
             if(index != std::string::npos)
             {
                 Variable(this).assignment(copy, index);
             }
 
+//            terminateExecution(E("Invalid Command.", runCommand));
         } else { //keyword
             auto e = E("Invalid Keyword Usage.", runCommand);
 
@@ -118,7 +118,8 @@ public:
             case KWS::Syscall: break;
             case KWS::Invoke: Function(this).invokeFunction(command); break;
             case KWS::Delete: Variable(this).deleteVariable(command); break;
-            case KWS::Print: LLCore::print(command);
+            case KWS::Print: LLCore::print(command); break;
+            case KWS::Paav: LLCore::print(command); break;
 
             default: terminateExecution(e); break;
             }

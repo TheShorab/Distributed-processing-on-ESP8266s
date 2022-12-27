@@ -40,7 +40,7 @@ public:
     enum class BLOCKS{FN, IF, ELSE, LOOP};
     enum class BOPS{EQ, GTEQ, LTEQ, GT, LT, NEQ};
     enum class DTS{InValid, Int, LInt, LLInt, UInt, F32, F64};
-    enum class KWS{Declare, Syscall, If, Else, Loop, Return, BranchTo, Function, Invoke, Delete, Print};
+    enum class KWS{Declare, Syscall, If, Else, Loop, Return, BranchTo, Function, Invoke, Delete, Print, Paav};
 
 public:
 
@@ -48,8 +48,9 @@ public:
 
     LLCore(const std::string& filename);
 
-    inline static void
-    terminateExecution(const Error& e)
+    FN_ATTRIBUTES(INLINE static)
+    FN_RETURN_TYPE(void)
+    FN_NAME terminateExecution(const Error& e)
     {
         std::cout << e.cause() << EXF;
         exit(0);
@@ -57,8 +58,8 @@ public:
 
     INDEPENDENT void print(const std::string& command)
     {
-        std::string name = checkAccessToVariableAndScopizeName(trim_copy(command));
-        Print(accessVariable(name));
+        std::string name = trim_copy(command);
+        PrintCommand("The value of " + name + " is : " + std::to_string(accessVariable(name)));
     }
 
     INDEPENDENT std::string scopizeName(const std::string &name, const Scope &scope)
@@ -100,6 +101,16 @@ public:
     //    void variableAndTypeNameValidator(const std::string &name);
     //    std::string enumTypeToStringType(DTS dt);
 
+    INDEPENDENT void printValues()
+    {
+        for (const auto& [key, value] : _values)
+        {
+            PrintCommand("Name -> " + key +
+                         ". Type -> " + value.first +
+                         ". Value -> " + std::to_string(accessVariable(key)));
+        }
+    }
+
     INDEPENDENT bool checkValue(const std::string &value)
     {
         return isNumber(value);
@@ -121,7 +132,7 @@ public:
              {"function", KWS::Function}, {"return", KWS::Return},
              {"if", KWS::If}, {"else", KWS::Else}, {"print", KWS::Print},
              {"syscall", KWS::Syscall}, {"invoke", KWS::Invoke},
-             {"delete", KWS::Delete}, {"loop", KWS::Loop}};
+             {"delete", KWS::Delete}, {"loop", KWS::Loop}, {"paav", KWS::Paav}};
 
         return keywords[type];
     }
@@ -265,7 +276,7 @@ public:
 
 private:
     double _retVal = 0;
-    size_t _lineNumber = 0;
+    size_t _lineNumber = 1;
     bool _condition = false;
     bool _withinFnDeclaration = false;
 

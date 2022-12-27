@@ -148,7 +148,7 @@ public:
         }
 
         pcb->addReturnAddress(pcb->getLineNumber());
-        manager.goTo(fn->start + 1, interpreter);
+        manager.goTo(fn->start, interpreter);
         pcb->addToCallStack(name);
         fn->invokeLine = line;
     }
@@ -206,9 +206,10 @@ public:
         fn->invokeLine.clear();
         pcb->setWithinFunctionCall(false);
         pcb->popCallStack();
+        interpreter->_refs.clear();
 
         // goto
-        manager.goTo(pcb->retAdd() + 1, interpreter);
+        manager.goTo(pcb->retAdd(), interpreter);
     }
 
 private:

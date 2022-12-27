@@ -2,9 +2,9 @@
 #define TESTS_H
 
 //#include"interpreter.h"
-#include <iostream>
-#include <time.h>
-#include <chrono>
+//#include <iostream>
+//#include <time.h>
+//#include <chrono>
 
 //void test_1_vriable_declaration(){
 //    Interpreter i;

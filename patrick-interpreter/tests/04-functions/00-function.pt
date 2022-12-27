@@ -16,7 +16,7 @@ declare: llint base = 2
 declare: int exponent = 3
 
 invoke: res = pow(base, exponent)
-
 print: res
+
 ///:not implemented yet.
 ///:print(res)

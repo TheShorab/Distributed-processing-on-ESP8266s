@@ -18,9 +18,7 @@ public:
         if(!file) {
             interpreter->pcb->nextLineNumber();
             scopeManager(kw, line);
-        }
-
-        if(file) {
+        } else {
             goTo(interpreter->pcb->nextLineNumber(), interpreter);
             scopeManager(kw ,line);
         }
@@ -55,6 +53,10 @@ public:
         {
             if(pcb->isWithinLoopBlock()){
                 IfElseBlock(loop()->generateBoolExpression(), interpreter);
+            }
+
+            if(pcb->isWithinFunctionCall()){
+                DEBUG_PRINT(line)
             }
 
 //            pcb->scope.first += 1;
@@ -111,7 +113,7 @@ public:
                     removeVariablesAllocatedInThisScope(interpreter);
 //                    pcb->scope.first++;
                     ++pcb->scope;
-                    ++pcb->scope; // becuace after end: will decrese again
+//                    ++pcb->scope; // becuace after end: will decrese again
 //                    pcb->scope.second--;
                     pcb->scope--;
                     //                    setRunAllowed(true);

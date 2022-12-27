@@ -43,20 +43,30 @@
 #if defined(ARDUINO) && DEBUG == 1
 #define DEBUG_PRINT(STRING) Serial.println(STRING)
 #else
-#if DEBUG == 1
+#if DEBUG == 0
 #define DEBUG_PRINT(STRING) std::cout << STRING << std::endl;
-#elif
-#define DEBUG_PRINT(STRING) //
+#else
+#define DEBUG_PRINT(STRING)
 #endif
 #endif
 
 #if defined(ARDUINO)
-#define Print(VALUE) Serial.println(VALUE)
+#define Print(VALUE) Serial.println(">> " + VALUE)
 #else
-#define Print(VALUE) std::cout << VALUE
+#define Print(VALUE) std::cout << VALUE;
 #endif
 
-#define XXX
+#if defined(ARDUINO)
+#define Println(VALUE) Serial.println(VALUE)
+#else
+#define Println(VALUE) std::cout << VALUE << std::endl
+#endif
+
+#if defined(ARDUINO)
+#define PrintCommand(VALUE) Serial.println(">> " + VALUE)
+#else
+#define PrintCommand(VALUE) std::cout << ">> " << VALUE << std::endl
+#endif
 
 #if FASTER == 1
 #define INLINE inline
