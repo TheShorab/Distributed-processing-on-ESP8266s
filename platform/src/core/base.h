@@ -241,25 +241,6 @@ namespace Platform
 
     namespace Base
     {
-        // void print(const std::string &s)
-        // {
-        //     return s.c_str();
-        // }
-
-        // void print(const String &s)
-        // {
-        // }
-
-        // void println()
-        // {
-        // }
-
-        void terminate_execution(const std::string &e)
-        {
-            Println(ADD_STACK_PLATFORM(Platform::to_string(e), TO_STRING(Base::Data::ID)));
-            Println(EXF);
-        }
-
         namespace Flags
         {
             DECLARE_INIT(int8_t, network, USE_TCP);
@@ -273,6 +254,8 @@ namespace Platform
                 IPAddress ip;
                 uint16_t port;
             };
+
+            File file;
 
             DECLARE_INIT(int8_t, ID, -1);
         }
@@ -306,6 +289,12 @@ namespace Platform
                 std::string line;
                 std::string lineNumber;
             };
+        }
+
+        void terminate_execution(const std::string &e)
+        {
+            Println(ADD_STACK_PLATFORM(Platform::to_string(e), TO_STRING(Base::Data::ID)));
+            Println(EXF);
         }
     }
 }

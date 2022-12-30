@@ -324,7 +324,12 @@ private:
     std::map<std::string, TypedValue> _values;
     std::map<std::string, std::string> _refs;
     std::map<std::string, FunctionType *> _functions;
+
+#if defined(ARDUINO)
+    File *file;
+#else
     std::ifstream *file;
+#endif
 };
 
 struct PCBManager;
@@ -614,7 +619,12 @@ inline LLCore::LLCore()
 }
 
 inline LLCore::LLCore(const std::string &filename)
-    : pcb(new PCB), file(new std::ifstream(filename))
+    : pcb(new PCB),
+#if defined(ARDUINO)
+      file(nullptr)
+#else
+      file(new std::ifstream(filename))
+#endif
 {
 }
 

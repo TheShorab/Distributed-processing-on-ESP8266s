@@ -35,14 +35,15 @@ namespace Platform
             Serial.printf("Listing directory: %s\n", dirname);
 
             File root = SD.open(dirname, "w+");
+
             if (!root)
             {
-                Serial.println("Failed to open directory");
+                Serial.println(STR("Failed to open directory"));
                 return;
             }
             if (!root.isDirectory())
             {
-                Serial.println("Not a directory");
+                Serial.println(STR("Not a directory"));
                 return;
             }
 
@@ -51,7 +52,7 @@ namespace Platform
             {
                 if (file.isDirectory())
                 {
-                    Serial.print("  DIR : ");
+                    Serial.print(STR("  DIR : "));
                     Serial.println(file.name());
                     if (levels)
                     {
@@ -60,9 +61,9 @@ namespace Platform
                 }
                 else
                 {
-                    Serial.print("  FILE: ");
+                    Serial.print(STR("  FILE: "));
                     Serial.print(file.name());
-                    Serial.print("  SIZE: ");
+                    Serial.print(STR("  SIZE: "));
                     Serial.println(file.size());
                 }
                 file = root.openNextFile();
@@ -76,11 +77,11 @@ namespace Platform
             Serial.printf("Creating Dir: %s\n", path);
             if (SD.mkdir(path))
             {
-                Serial.println("Dir created");
+                Serial.println(STR("Dir created"));
             }
             else
             {
-                Serial.println("mkdir failed");
+                Serial.println(STR("mkdir failed"));
             }
         }
 
@@ -91,11 +92,11 @@ namespace Platform
             Serial.printf("Removing Dir: %s\n", path);
             if (SD.rmdir(path))
             {
-                Serial.println("Dir removed");
+                Serial.println(STR("Dir removed"));
             }
             else
             {
-                Serial.println("rmdir failed");
+                Serial.println(STR("rmdir failed"));
             }
         }
 
@@ -112,34 +113,38 @@ namespace Platform
 
         FN_ATTRIBUTES(INDEPENDENT ICACHE_FLASH_ATTR)
         FN_RETURN_TYPE(void)
-        FN_NAME readFile(const char *path)
+        FN_NAME readFile(File file, const char *path)
         {
             Serial.printf("Reading file: %s\n", path);
 
-            File file = SD.open(path, "r+");
             if (!file)
             {
-                Serial.println("Failed to open file for reading");
+                Serial.println(STR("Failed to open file for reading"));
                 return;
             }
 
-            Serial.print("Read from file: ");
+            Serial.print(STR("Read from file: "));
             while (file.available())
             {
-                // Serial.write();
                 Println(readLine(file).c_str());
             }
+        }
 
+        FN_ATTRIBUTES(INDEPENDENT ICACHE_FLASH_ATTR)
+        FN_RETURN_TYPE(void)
+        FN_NAME readFile(const char *path)
+        {
+            File file = SD.open(path, "r+");
+            readFile(file, path);
             file.close();
         }
 
         FN_ATTRIBUTES(INDEPENDENT ICACHE_FLASH_ATTR)
         FN_RETURN_TYPE(bool)
-        FN_NAME fileExists(const char *path)
+        FN_NAME fileExists(File file, const char *path)
         {
             Serial.printf("Finding file: %s\n", path);
 
-            File file = SD.open(path, "r+");
             if (!file)
             {
                 Serial.printf("File founded: %s\n", path);
@@ -153,48 +158,69 @@ namespace Platform
         }
 
         FN_ATTRIBUTES(INDEPENDENT ICACHE_FLASH_ATTR)
+        FN_RETURN_TYPE(bool)
+        FN_NAME fileExists(const char *path)
+        {
+            fileExists(SD.open(path, "r+"), path);
+        }
+
+        FN_ATTRIBUTES(INDEPENDENT ICACHE_FLASH_ATTR)
         FN_RETURN_TYPE(void)
-        FN_NAME writeFile(const char *path, const char *message)
+        FN_NAME writeFile(File file, const char *path, const char *message)
         {
             Serial.printf("Writing file: %s\n", path);
 
-            File file = SD.open(path, "w+");
             if (!file)
             {
-                Serial.println("Failed to open file for writing");
+                Serial.println(STR("Failed to open file for writing"));
                 return;
             }
             if (file.print(message))
             {
-                Serial.println("File written");
+                Serial.println(STR("File written"));
             }
             else
             {
-                Serial.println("Write failed");
+                Serial.println(STR("Write failed"));
             }
+        }
+
+        FN_ATTRIBUTES(INDEPENDENT ICACHE_FLASH_ATTR)
+        FN_RETURN_TYPE(void)
+        FN_NAME writeFile(const char *path, const char *message)
+        {
+            File file = SD.open(path, "w+");
+            writeFile(file, path, message);
             file.close();
+        }
+
+        FN_ATTRIBUTES(INDEPENDENT ICACHE_FLASH_ATTR)
+        FN_RETURN_TYPE(void)
+        FN_NAME appendFile(File file, const char *path, const char *message)
+        {
+            Serial.printf("Appending to file: %s\n", path);
+
+            if (!file)
+            {
+                Serial.println(STR("Failed to open file for appending"));
+                return;
+            }
+            if (file.print(message))
+            {
+                Serial.println(STR("Message appended"));
+            }
+            else
+            {
+                Serial.println(STR("Append failed"));
+            }
         }
 
         FN_ATTRIBUTES(INDEPENDENT ICACHE_FLASH_ATTR)
         FN_RETURN_TYPE(void)
         FN_NAME appendFile(const char *path, const char *message)
         {
-            Serial.printf("Appending to file: %s\n", path);
-
             File file = SD.open(path, "a");
-            if (!file)
-            {
-                Serial.println("Failed to open file for appending");
-                return;
-            }
-            if (file.print(message))
-            {
-                Serial.println("Message appended");
-            }
-            else
-            {
-                Serial.println("Append failed");
-            }
+            appendFile(file, path, message);
             file.close();
         }
 
@@ -205,11 +231,11 @@ namespace Platform
             Serial.printf("Renaming file %s to %s\n", path1, path2);
             if (SD.rename(path1, path2))
             {
-                Serial.println("File renamed");
+                Serial.println(STR("File renamed"));
             }
             else
             {
-                Serial.println("Rename failed");
+                Serial.println(STR("Rename failed"));
             }
         }
 
@@ -220,11 +246,11 @@ namespace Platform
             Serial.printf("Deleting file: %s\n", path);
             if (SD.remove(path))
             {
-                Serial.println("File deleted");
+                Serial.println(STR("File deleted"));
             }
             else
             {
-                Serial.println("Delete failed");
+                Serial.println(STR("Delete failed"));
             }
         }
 
@@ -238,27 +264,27 @@ namespace Platform
 
             if (!SD.begin(CS, /* spi */ 8000000U))
             {
-                Serial.println("Card Mount Failed");
+                Serial.println(STR("Card Mount Failed"));
                 return false;
             }
 
             uint8_t cardType = SD.type();
-            Serial.print("SD Card Type: ");
+            Serial.print(STR("SD Card Type: "));
             if (cardType == sdfat::SD_CARD_TYPE_SD1)
             {
-                Serial.println("MMC");
+                Serial.println(STR("MMC"));
             }
             else if (cardType == sdfat::SD_CARD_TYPE_SD2)
             {
-                Serial.println("SDSC");
+                Serial.println(STR("SDSC"));
             }
             else if (cardType == sdfat::SD_CARD_TYPE_SDHC)
             {
-                Serial.println("SDHC");
+                Serial.println(STR("SDHC"));
             }
             else
             {
-                Serial.println("UNKNOWN");
+                Serial.println(STR("UNKNOWN"));
             }
 
             uint64_t cardSize = SD.size() / (1024 * 1024 * 1024);

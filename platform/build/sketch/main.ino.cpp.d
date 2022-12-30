@@ -211,4 +211,20 @@ f:\UT\Term\ 1\Computer\ Achitecture\Project\Distributed-processing-on-ESP8266s\p
  f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\core\password-generator.h \
  f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\core\server/server.h \
  f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\core\flash-light.h \
- f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\core\base.h
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\core\base.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\interpreter\interpreter.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\interpreter\front\front-end.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\interpreter\core\pcb-manager.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\interpreter\core\core.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\interpreter\core\expression-solver.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\interpreter\core\llcore.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\core\base.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\interpreter\core\scope.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\interpreter\core\if-else.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\interpreter\core\variable.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\interpreter\core\loop-state.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\interpreter\core\function.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\interpreter\core\pcb-manager.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\interpreter\core\if-else.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\interpreter\core\loop.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\interpreter\core\variable.h

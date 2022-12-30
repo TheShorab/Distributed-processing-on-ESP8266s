@@ -17,22 +17,7 @@ public:
 
     FrontEnd(const std::string &fileName) : Core(fileName)
     {
-        file->close();
-        file->open(fileName, std::fstream::in);
-
-        if (!file->is_open())
-        {
-            Print("file closed!\n");
-            return;
-        }
-
-        std::string line;
-        while (file->peek() != -1)
-        {
-            std::getline(*this->file, line);
-
-            runOneCommand(line);
-        }
+        start();
     }
 
     ~FrontEnd()
@@ -94,6 +79,28 @@ public:
             runCommand(keyword, command);
     }
 
+    void initFile(File *newFile)
+    {
+        file = newFile;
+    }
+
+    void start()
+    {
+        running = true;
+        run();
+    }
+
+    void pause()
+    {
+        running = false;
+    }
+
+    void resume()
+    {
+        start();
+    }
+
+private:
     FN_ATTRIBUTES(INLINE INDEPENDENT)
     FN_RETURN_TYPE(void)
     FN_NAME runCommand(const std::string &keyword, const std::string &command)
@@ -163,6 +170,55 @@ public:
 
         return;
     }
+
+#ifndef ARDUINO
+    void run()
+    {
+        file->close();
+        file->open(fileName, std::fstream::in);
+
+        if (!file->is_open())
+        {
+            Print("file closed!\n");
+            return;
+        }
+
+        std::string line;
+        while (file->peek() != -1)
+        {
+            if (!running)
+                break;
+
+            std::getline(*this->file, line);
+
+            runOneCommand(line);
+        }
+    }
+#else
+    void run()
+    {
+        if (!file)
+        {
+            Print("file closed!\n");
+            return;
+        }
+
+        std::string line;
+        while (file->peek() != -1)
+        {
+            if (!running)
+                break;
+
+            for (char ch = (char)file->read(); file->available() && ch != '\n'; ch = (char)file->read())
+                line.push_back(ch);
+
+            runOneCommand(line);
+        }
+    }
+#endif
+
+private:
+    bool running = false;
 };
 
 #endif // FRONTEND_H

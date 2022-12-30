@@ -154,6 +154,19 @@ public:
         }
     }
 
+#if defined(ARDUINO)
+    void goTo(size_t line, Core *interpreter)
+    {
+        interpreter->file->seek(line);
+
+        // for (size_t i = 0; i < line - 1; ++i)
+        // {
+        //     interpreter->file->ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        // }
+
+        interpreter->pcb->setLineNumber(line);
+    }
+#else
     void goTo(size_t line, Core *interpreter)
     {
         interpreter->file->seekg(std::ios::beg);
@@ -164,6 +177,7 @@ public:
 
         interpreter->pcb->setLineNumber(line);
     }
+#endif
 
     void setLoop(LoopState *loop)
     {

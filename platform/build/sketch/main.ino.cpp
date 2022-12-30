@@ -4,12 +4,18 @@
 #include "./core/file-manager.h"
 #include "./core/network-node.h"
 #include "./core/flash-light.h"
+#include "./interpreter/interpreter.h"
 
-#line 6 "f:\\UT\\Term 1\\Computer Achitecture\\Project\\Distributed-processing-on-ESP8266s\\platform\\src\\main.ino"
+namespace Platform
+{
+    Platform::Modules::Interpreter interpreter;
+}
+
+#line 12 "f:\\UT\\Term 1\\Computer Achitecture\\Project\\Distributed-processing-on-ESP8266s\\platform\\src\\main.ino"
 void setup();
-#line 30 "f:\\UT\\Term 1\\Computer Achitecture\\Project\\Distributed-processing-on-ESP8266s\\platform\\src\\main.ino"
+#line 31 "f:\\UT\\Term 1\\Computer Achitecture\\Project\\Distributed-processing-on-ESP8266s\\platform\\src\\main.ino"
 void loop();
-#line 6 "f:\\UT\\Term 1\\Computer Achitecture\\Project\\Distributed-processing-on-ESP8266s\\platform\\src\\main.ino"
+#line 12 "f:\\UT\\Term 1\\Computer Achitecture\\Project\\Distributed-processing-on-ESP8266s\\platform\\src\\main.ino"
 void setup()
 {
     delay(2000);
@@ -25,16 +31,26 @@ void setup()
     }
 
     Platform::NetworkNode::initialize();
-
-    Platform::FileManager::listDir("/", 0);
-    Platform::FileManager::readFile("/hello.txt");
-
-    std::any a = 20;
-
-    Print(std::any_cast<int>(a));
+    Platform::Base::Data::file = SD.open(STR("./source.pt"), "r+");
+    Platform::interpreter.initialize(&Platform::Base::Data::file);
 }
 
 void loop()
 {
+    if (!Platform::Base::Data::file)
+    {
+        Println(STR("Failed to open file for reading"));
+        return;
+    }
+
+    while (Platform::Base::Data::file.available())
+    {
+        Platform::interpreter.run_command(Platform::FileManager::readLine(Platform::Base::Data::file));
+    }
+
+    if (!Platform::Base::Data::file.available())
+    {
+        Platform::interpreter.exit();
+    }
 }
 

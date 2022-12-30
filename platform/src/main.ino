@@ -2,6 +2,12 @@
 #include "./core/file-manager.h"
 #include "./core/network-node.h"
 #include "./core/flash-light.h"
+#include "./interpreter/interpreter.h"
+
+namespace Platform
+{
+    Platform::Modules::Interpreter interpreter;
+}
 
 void setup()
 {
@@ -18,11 +24,25 @@ void setup()
     }
 
     Platform::NetworkNode::initialize();
-
-    Platform::FileManager::listDir("/", 0);
-    Platform::FileManager::readFile("/hello.txt");
+    Platform::Base::Data::file = SD.open(STR("./source.pt"), "r+");
+    Platform::interpreter.initialize(&Platform::Base::Data::file);
 }
 
 void loop()
 {
+    if (!Platform::Base::Data::file)
+    {
+        Println(STR("Failed to open file for reading"));
+        return;
+    }
+
+    while (Platform::Base::Data::file.available())
+    {
+        Platform::interpreter.run_command(Platform::FileManager::readLine(Platform::Base::Data::file));
+    }
+
+    if (!Platform::Base::Data::file.available())
+    {
+        Platform::interpreter.exit();
+    }
 }
