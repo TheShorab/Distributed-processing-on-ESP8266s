@@ -1,5 +1,5 @@
 {
-  "additionalFiles": "..\\..,..\\..,..\\..",
+  "additionalFiles": "..\\..,..\\..,..\\..,..\\..,..\\..,..\\..,..\\..\\..,..\\..\\..,..\\..\\..,..\\..\\..,..\\..\\..,..\\..\\..,..\\..\\..,..\\..\\..,..\\..\\..,..\\..\\..,..\\..\\..,..\\..\\..,..\\..\\..,..\\..\\..,..\\..\\..,..\\..\\..,..\\..\\..,..\\..\\..,..\\..",
   "builtInLibrariesFolders": "C:\\Program Files\\Arduino\\arduino-1.8.19\\libraries",
   "builtInToolsFolders": "C:\\Program Files\\Arduino\\arduino-1.8.19\\tools-builder,C:\\Program Files\\Arduino\\arduino-1.8.19\\hardware\\tools\\avr,C:\\Users\\Khaste\\AppData\\Local\\Arduino15\\packages",
   "compiler.optimization_flags": "",

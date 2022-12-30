@@ -1,34 +1,33 @@
 # 1 "f:\\UT\\Term 1\\Computer Achitecture\\Project\\Distributed-processing-on-ESP8266s\\platform\\src\\main.ino"
 # 2 "f:\\UT\\Term 1\\Computer Achitecture\\Project\\Distributed-processing-on-ESP8266s\\platform\\src\\main.ino" 2
 # 3 "f:\\UT\\Term 1\\Computer Achitecture\\Project\\Distributed-processing-on-ESP8266s\\platform\\src\\main.ino" 2
+# 4 "f:\\UT\\Term 1\\Computer Achitecture\\Project\\Distributed-processing-on-ESP8266s\\platform\\src\\main.ino" 2
+# 5 "f:\\UT\\Term 1\\Computer Achitecture\\Project\\Distributed-processing-on-ESP8266s\\platform\\src\\main.ino" 2
 
 void setup()
 {
+    delay(2000);
     Serial.begin(115200);
+
+    Platform::FlashLight::initialize();
 
     bool sd_init_res = Platform::FileManager::initialize();
 
     if (sd_init_res)
     {
-        Platform::NetworkNode::ID = 0;
+        Platform::Base::Data::ID = 0;
     }
 
-    auto &server = Platform::NetworkNode::initialize();
+    Platform::NetworkNode::initialize();
 
-    server
+    Platform::FileManager::listDir("/", 0);
+    Platform::FileManager::readFile("/hello.txt");
+
+    std::any a = 20;
+
+    Serial.println(std::any_cast<int>(a));
 }
 
 void loop()
 {
 }
-
-// void setup() {
-//   pinMode(LED_BUILTIN, OUTPUT);     // Initialize the LED_BUILTIN pin as an output
-// }
-
-// void loop() {
-//   digitalWrite(LED_BUILTIN, LOW);   // Turn the LED on by making the voltage LOW
-//   delay(1000);                      // Wait for a second
-//   digitalWrite(LED_BUILTIN, HIGH);  // Turn the LED off by making the voltage HIGH
-//   delay(2000);                      // Wait for two seconds
-// }

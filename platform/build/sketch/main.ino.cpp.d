@@ -45,69 +45,8 @@ f:\UT\Term\ 1\Computer\ Achitecture\Project\Distributed-processing-on-ESP8266s\p
  C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266/debug.h \
  C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\variants\nodemcu/pins_arduino.h \
  c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\variants\generic\common.h \
- f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\core\file-manager.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\SD\src/SD.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266/FS.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\SDFS\src/SDFS.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266/FSImpl.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\SPI/SPI.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/SdFat.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/common/SysCall.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\sdfatconfig.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/SdCard/SdCard.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/SdCard/SdioCard.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\syscall.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/SdCard/SdCardInterface.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\blockdeviceinterface.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\sdfatconfig.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/SdCard/SdCardInfo.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/SdCard/SdSpiCard.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\spidriver\sdspidriver.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\syscall.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\spidriver\SdSpiArduinoDriver.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/ExFatLib/ExFatLib.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/ExFatLib/ExFatVolume.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/ExFatLib/ExFatPartition.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\syscall.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\blockdevice.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/SdCard/SdCard.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/ExFatLib/ExFatConfig.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\sdfatconfig.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/ExFatLib/ExFatTypes.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/ExFatLib/ExFatFile.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\fsdatetime.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\CompileDateTime.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\SysCall.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\fsstructs.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\fsapiconstants.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\fmtnumber.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\arduinofiles.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/ExFatLib/ExFatFormatter.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/ExFatLib/upcase.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/FatLib/FatLib.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/FatLib/FatVolume.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/FatLib/FatPartition.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/FatLib/FatLibConfig.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/SdFatConfig.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\syscall.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\blockdevice.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\fsstructs.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/FatLib/FatFile.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\fmtnumber.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\fsapiconstants.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\fsdatetime.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\arduinofiles.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/FatLib/FatFormatter.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/FsLib/FsLib.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/FsLib/FsVolume.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/FsLib/FsNew.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\fatlib\fatlib.h \
- c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\exfatlib\exfatlib.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/FsLib/FsFile.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/FatLib/FatLib.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/ExFatLib/ExFatLib.h \
- C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/SdCard/SdCardInfo.h \
- f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\core\network.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\core\server\server.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\core\base.h \
  C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266WiFi\src/ESP8266WiFi.h \
  C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266/wl_definitions.h \
  C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266/IPAddress.h \
@@ -183,8 +122,10 @@ f:\UT\Term\ 1\Computer\ Achitecture\Project\Distributed-processing-on-ESP8266s\p
  C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266/Updater.h \
  C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266WiFi\src/CertStoreBearSSL.h \
  C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266WiFi\src/BearSSLHelpers.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266/FS.h \
  C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266WiFi\src/WiFiServerSecureBearSSL.h \
  C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266WiFi\src/WiFiClientSecure.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\core\server\http.h \
  C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266WebServer\src/ESP8266WebServer.h \
  C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266WebServer\src/detail/mimetable.h \
  C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266WebServer\src/Uri.h \
@@ -203,4 +144,71 @@ f:\UT\Term\ 1\Computer\ Achitecture\Project\Distributed-processing-on-ESP8266s\p
  C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266/esp_priv.h \
  C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266/StreamString.h \
  C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266WebServer\src/Parsing-impl.h \
- f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\core\password-generator.h
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266HTTPClient\src/ESP8266HTTPClient.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\core\file-manager.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\core\base.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\SD\src/SD.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\SDFS\src/SDFS.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266/FSImpl.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\SPI/SPI.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/SdFat.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/common/SysCall.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\sdfatconfig.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/SdCard/SdCard.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/SdCard/SdioCard.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\syscall.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/SdCard/SdCardInterface.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\blockdeviceinterface.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\sdfatconfig.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/SdCard/SdCardInfo.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/SdCard/SdSpiCard.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\spidriver\sdspidriver.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\syscall.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\spidriver\SdSpiArduinoDriver.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/ExFatLib/ExFatLib.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/ExFatLib/ExFatVolume.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/ExFatLib/ExFatPartition.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\syscall.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\blockdevice.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/SdCard/SdCard.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/ExFatLib/ExFatConfig.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\sdfatconfig.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/ExFatLib/ExFatTypes.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/ExFatLib/ExFatFile.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\fsdatetime.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\CompileDateTime.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\SysCall.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\fsstructs.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\fsapiconstants.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\fmtnumber.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\arduinofiles.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/ExFatLib/ExFatFormatter.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/ExFatLib/upcase.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/FatLib/FatLib.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/FatLib/FatVolume.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/FatLib/FatPartition.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/FatLib/FatLibConfig.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/SdFatConfig.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\syscall.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\blockdevice.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\fsstructs.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/FatLib/FatFile.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\fmtnumber.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\fsapiconstants.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\fsdatetime.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\common\arduinofiles.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/FatLib/FatFormatter.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/FsLib/FsLib.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/FsLib/FsVolume.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/FsLib/FsNew.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\fatlib\fatlib.h \
+ c:\users\khaste\appdata\local\arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\esp8266sdfat\src\exfatlib\exfatlib.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/FsLib/FsFile.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/FatLib/FatLib.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/ExFatLib/ExFatLib.h \
+ C:\Users\Khaste\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266SdFat\src/SdCard/SdCardInfo.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\core\network-node.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\core\password-generator.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\core\server/server.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\core\flash-light.h \
+ f:\ut\term\ 1\computer\ achitecture\project\distributed-processing-on-esp8266s\platform\build\sketch\core\base.h

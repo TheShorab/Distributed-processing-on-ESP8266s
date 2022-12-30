@@ -1,33 +1,28 @@
+#include "./core/server/server.h"
 #include "./core/file-manager.h"
-#include "./core/network.h"
+#include "./core/network-node.h"
+#include "./core/flash-light.h"
 
 void setup()
 {
+    delay(2000);
     Serial.begin(115200);
+
+    Platform::FlashLight::initialize();
 
     bool sd_init_res = Platform::FileManager::initialize();
 
     if (sd_init_res)
     {
-        Platform::NetworkNode::ID = 0;
+        Platform::Base::Data::ID = 0;
     }
 
-    auto &server = Platform::NetworkNode::initialize();
+    Platform::NetworkNode::initialize();
 
-    server;
+    Platform::FileManager::listDir("/", 0);
+    Platform::FileManager::readFile("/hello.txt");
 }
 
 void loop()
 {
 }
-
-// void setup() {
-//   pinMode(LED_BUILTIN, OUTPUT);     // Initialize the LED_BUILTIN pin as an output
-// }
-
-// void loop() {
-//   digitalWrite(LED_BUILTIN, LOW);   // Turn the LED on by making the voltage LOW
-//   delay(1000);                      // Wait for a second
-//   digitalWrite(LED_BUILTIN, HIGH);  // Turn the LED off by making the voltage HIGH
-//   delay(2000);                      // Wait for two seconds
-// }

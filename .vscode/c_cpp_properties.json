@@ -14,7 +14,7 @@
                 "-mtext-section-literals",
                 "-fno-rtti",
                 "-falign-functions=4",
-                "-std=gnu++17"
+                "-std=gnu++20"
             ],
             "intelliSenseMode": "gcc-x64",
             "includePath": [
@@ -23,12 +23,13 @@
                 "f:\\UT\\Term 1\\Computer Achitecture\\Project\\Distributed-processing-on-ESP8266s\\platform\\build\\core",
                 "C:\\Users\\Khaste\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.0.2\\cores\\esp8266",
                 "C:\\Users\\Khaste\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.0.2\\variants\\nodemcu",
+                "C:\\Users\\Khaste\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.0.2\\libraries\\ESP8266WiFi\\src",
+                "C:\\Users\\Khaste\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.0.2\\libraries\\ESP8266WebServer\\src",
+                "C:\\Users\\Khaste\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.0.2\\libraries\\ESP8266HTTPClient\\src",
                 "C:\\Users\\Khaste\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.0.2\\libraries\\SD\\src",
                 "C:\\Users\\Khaste\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.0.2\\libraries\\SDFS\\src",
                 "C:\\Users\\Khaste\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.0.2\\libraries\\SPI",
                 "C:\\Users\\Khaste\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.0.2\\libraries\\ESP8266SdFat\\src",
-                "C:\\Users\\Khaste\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.0.2\\libraries\\ESP8266WiFi\\src",
-                "C:\\Users\\Khaste\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.0.2\\libraries\\ESP8266WebServer\\src",
                 "c:\\users\\khaste\\appdata\\local\\arduino15\\packages\\esp8266\\tools\\xtensa-lx106-elf-gcc\\3.0.4-gcc10.3-1757bed\\xtensa-lx106-elf\\include\\c++\\10.3.0",
                 "c:\\users\\khaste\\appdata\\local\\arduino15\\packages\\esp8266\\tools\\xtensa-lx106-elf-gcc\\3.0.4-gcc10.3-1757bed\\xtensa-lx106-elf\\include\\c++\\10.3.0\\xtensa-lx106-elf",
                 "c:\\users\\khaste\\appdata\\local\\arduino15\\packages\\esp8266\\tools\\xtensa-lx106-elf-gcc\\3.0.4-gcc10.3-1757bed\\xtensa-lx106-elf\\include\\c++\\10.3.0\\backward",
@@ -39,8 +40,8 @@
             "forcedInclude": [
                 "C:\\Users\\Khaste\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.0.2\\cores\\esp8266\\Arduino.h"
             ],
-            "cStandard": "c11",
-            "cppStandard": "c++17",
+            "cStandard": "c17",
+            "cppStandard": "c++20",
             "defines": [
                 "__ets__",
                 "ICACHE_FLASH",
@@ -161,7 +162,7 @@
                 "__FLT32X_HAS_DENORM__=1",
                 "__INT_FAST16_TYPE__=int",
                 "__LDBL_HAS_DENORM__=1",
-                "__cplusplus=201402L",
+                "__cplusplus=202002L",
                 "__cpp_ref_qualifiers=200710L",
                 "__INT_LEAST32_MAX__=0x7fffffff",
                 "__DEPRECATED=1",

@@ -7,15 +7,15 @@ class Interpreter
 {
 
 public:
-
-    Interpreter(const std::string& filename)
+    Interpreter(const std::string &filename)
     {
         FrontEnd _interpreter(filename);
     }
 
     Interpreter(int argc, char *argv[])
     {
-        if(argc <= 1) eventLoop();
+        if (argc <= 1)
+            eventLoop();
         else
         {
             Println("");
@@ -34,7 +34,9 @@ public:
         }
     }
 
-    void eventLoop(){
+#ifndef ARDUINO
+    void eventLoop()
+    {
         FrontEnd _interpreter;
         std::string line;
 
@@ -47,13 +49,14 @@ public:
         Println("\tpaav: -> Prints All Allocated Values Till Now.");
         Print("\n\n");
 
-        while(true)
+        while (true)
         {
             Print(">> ");
 
             std::getline(std::cin, line);
 
-            if(line == "exit") break;
+            if (line == "exit")
+                break;
 
             Print(line);
             _interpreter.runOneCommand(line);
@@ -63,6 +66,13 @@ public:
         Println("Good Luck :)");
         Println("");
     }
+#else
+    void eventLoop()
+    {
+        Platform::Base::terminate_execution("You CAN NOT use Patrick RealTime Interpret mode on Micro controllers.");
+    }
+
+#endif
 };
 
 #endif // INTERPRETER_H

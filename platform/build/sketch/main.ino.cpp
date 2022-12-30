@@ -1,41 +1,40 @@
 #include <Arduino.h>
 #line 1 "f:\\UT\\Term 1\\Computer Achitecture\\Project\\Distributed-processing-on-ESP8266s\\platform\\src\\main.ino"
+#include "./core/server/server.h"
 #include "./core/file-manager.h"
-#include "./core/network.h"
+#include "./core/network-node.h"
+#include "./core/flash-light.h"
 
-#line 4 "f:\\UT\\Term 1\\Computer Achitecture\\Project\\Distributed-processing-on-ESP8266s\\platform\\src\\main.ino"
+#line 6 "f:\\UT\\Term 1\\Computer Achitecture\\Project\\Distributed-processing-on-ESP8266s\\platform\\src\\main.ino"
 void setup();
-#line 20 "f:\\UT\\Term 1\\Computer Achitecture\\Project\\Distributed-processing-on-ESP8266s\\platform\\src\\main.ino"
+#line 30 "f:\\UT\\Term 1\\Computer Achitecture\\Project\\Distributed-processing-on-ESP8266s\\platform\\src\\main.ino"
 void loop();
-#line 4 "f:\\UT\\Term 1\\Computer Achitecture\\Project\\Distributed-processing-on-ESP8266s\\platform\\src\\main.ino"
+#line 6 "f:\\UT\\Term 1\\Computer Achitecture\\Project\\Distributed-processing-on-ESP8266s\\platform\\src\\main.ino"
 void setup()
 {
+    delay(2000);
     Serial.begin(115200);
+
+    Platform::FlashLight::initialize();
 
     bool sd_init_res = Platform::FileManager::initialize();
 
     if (sd_init_res)
     {
-        Platform::NetworkNode::ID = 0;
+        Platform::Base::Data::ID = 0;
     }
 
-    auto &server = Platform::NetworkNode::initialize();
+    Platform::NetworkNode::initialize();
 
-    server
+    Platform::FileManager::listDir("/", 0);
+    Platform::FileManager::readFile("/hello.txt");
+
+    std::any a = 20;
+
+    Print(std::any_cast<int>(a));
 }
 
 void loop()
 {
 }
-
-// void setup() {
-//   pinMode(LED_BUILTIN, OUTPUT);     // Initialize the LED_BUILTIN pin as an output
-// }
-
-// void loop() {
-//   digitalWrite(LED_BUILTIN, LOW);   // Turn the LED on by making the voltage LOW
-//   delay(1000);                      // Wait for a second
-//   digitalWrite(LED_BUILTIN, HIGH);  // Turn the LED off by making the voltage HIGH
-//   delay(2000);                      // Wait for two seconds
-// }
 
