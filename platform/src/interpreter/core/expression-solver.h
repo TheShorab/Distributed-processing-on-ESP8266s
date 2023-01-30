@@ -27,7 +27,7 @@ private:
         case 3: return '/';
         case 4: return '%';
         case 5: return '^';
-        default: LLCore::terminateExecution(E("Priority Of Of Range!", priorityToCharacter));
+        default: LLCore::terminateExecution(E("Priority Of Of Range!"));
         }
 
         NON_VOID(char)

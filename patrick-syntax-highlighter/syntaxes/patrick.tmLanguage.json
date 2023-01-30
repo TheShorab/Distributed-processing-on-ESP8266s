@@ -19,7 +19,7 @@
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.patrick",
-				"match": "\\b(if|else|switch|case|loop|branch_to|declare|return|invoke|function|syscall)\\b"
+				"match": "\\b(if|else|switch|case|loop|branch_to|declare|return|invoke|function|syscall|dispatch|use)\\b"
 		},
 		{
 			"include": "#operators"
@@ -49,13 +49,13 @@
 		"constant2s": {
 			"patterns": [{
 				"name": "invalid.illegal",
-				"match": "\\b(up_to|up_to_eq|down_to|down_to_eq|step)\\b"
+				"match": "\\b(up_to|up_to_eq|down_to|down_to_eq|step|as)\\b"
 			}]
 		},
 		"cpuis": {
 			"patterns": [{
 				"name": "string.quoted.double.patrick",
-				"match": "\\b(CPU__[A-z]+)\\b"
+				"match": "\\b([A-z]+__[A-z]+)\\b"
 			}]
 		},
 		"storages":{
@@ -67,7 +67,7 @@
 		"platforms":{
 			"patterns": [{
 				"name": "markup.bold",
-				"match": "\\b(CPU|CPU\\d+|CPUS|CPU%|CPU_ID|print)\\b"
+				"match": "\\b(CPU|CPU\\d+|CPUS|CPU%|CPU_ID|print|paav)\\b"
 			}]
 		},
 		"comments": {

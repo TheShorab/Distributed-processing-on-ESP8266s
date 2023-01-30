@@ -62,7 +62,7 @@ public:
             }
         }
 
-        if(badOperator) LLCore::terminateExecution(E("Bad Operator", ifElseBlock));
+        if(badOperator) LLCore::terminateExecution(E("Bad Operator"));
     }
 
 private:
@@ -81,7 +81,7 @@ private:
     CalculationMetaData loadValueToItsStack(const std::string &type, const std::any &value)
     {
         auto& pcb = interpreter->pcb;
-        auto e = E("Invalid Data Type :: variable type : " + type, loadValueToItsStack);
+        auto e = E("Invalid Data Type :: variable type : " + type);
 
         switch (interpreter->stringTypeToEnumType(type)) {
         case LLCore::DTS::Int:
@@ -121,7 +121,7 @@ private:
         auto& pcb = interpreter->pcb;
 
         auto helper = [this, &op, &pcb] (auto oper1, auto oper2){
-            auto e = E("Invalid Operator, used operator: " + op, booleanOperation_helper);
+            auto e = E("Invalid Operator, used operator: " + op);
 
             switch (interpreter->operatorStringToOperatorEnum(op)) {
             case LLCore::BOPS::EQ: return oper1 == oper2;
@@ -138,7 +138,7 @@ private:
         };
 
 
-        auto e = E("Invalid Data Type :: variable type : " + type, booleanOperation);
+        auto e = E("Invalid Data Type :: variable type : " + type);
         switch (interpreter->stringTypeToEnumType(type)) {
         case LLCore::DTS::Int:{
             int oper1 = intStack.top(); intStack.pop();

@@ -5,7 +5,7 @@
 #include "SdCard/SdCardInfo.h"
 #include <string>
 
-#define SD_MODE 0
+#define SD_MODE 2
 #if SD_MODE == 0
 #define __SD__ SD
 #elif SD_MODE == 1
@@ -258,13 +258,14 @@ namespace Platform
         FN_RETURN_TYPE(bool)
         FN_NAME initialize()
         {
+            // DEBUG_PRINTLN(STR("invoked"));
             SPIClass spi;
             spi.pins(SCK, MISO, MOSI, CS);
             spi.begin();
 
             if (!SD.begin(CS, /* spi */ 8000000U))
             {
-                Serial.println(STR("Card Mount Failed"));
+                Serial.println(STR("Card Mount Failed."));
                 return false;
             }
 

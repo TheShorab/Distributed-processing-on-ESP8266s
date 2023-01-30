@@ -11,10 +11,9 @@ function: pow(llint base, int exponent) llint
     return: result
 }
 
-declare: llint res = 0
+declare: llint result = 0
 declare: llint base = 2
 declare: int exponent = 3
 
-invoke: res = pow(base, exponent)
-print: res
-
+invoke: result = pow(base, exponent)
+print: result

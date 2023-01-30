@@ -1,0 +1,12 @@
+declare: int number = 10
+
+loop: int i = 0 up_to number, step = 1
+{
+    branch_to: i as thread__i
+    {  
+    }
+}
+
+paav:
+
+dispatch: thread_0

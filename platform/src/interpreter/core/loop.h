@@ -47,7 +47,8 @@ public:
         size_t assignIndex = secondPart.find("=");
         if(assignIndex == std::string::npos) return;
 
-        Variable(interpreter).declare(initPart);
+        interpreter->pcb->scope++;
+        Variable(interpreter).declare(initPart); //0,1
         auto tn = Variable::nameAndType(initPart.substr(0, initPart.find('=')), interpreter);
         std::string start = tn.second;
         LoopState * ls = new LoopState();

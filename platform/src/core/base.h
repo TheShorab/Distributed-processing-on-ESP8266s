@@ -21,6 +21,34 @@
 #include <ESP8266WiFi.h>
 #endif
 
+#define CONSTRUCTOR
+#define DESTRUCTOR
+
+// #define SD_MODE 2
+
+// #if (SD_MODE == 0)
+// #define _SD_ SD
+// #define _FILE_ File
+// #endif
+
+// #if (SD_MODE == 1)
+// sdfat::SdFat sd;
+// #define _SD_ sd
+// #define _FILE_ sdfat::File
+// #endif
+
+// #if (SD_MODE == 2)
+// sdfat::SdFat32 sd;
+// #define _SD_ sd
+// #define _FILE_ sdfat::File32
+// #endif
+
+// #if (SD_MODE == 3)
+// sdfat::SdExFat sd;
+// #define _SD_ sd
+// #define _FILE_ sdfat::File32
+// #endif
+
 #if defined(_MSC_VER)
 #define NO_RETURN
 #define MAYBE_UNUSED
@@ -53,11 +81,16 @@
 #endif
 
 #ifdef ARDUINO
+#define YIELD yield();
 #define STR(string_literal) F(string_literal)
-#define Print(VALUE) Serial.println(Platform::to_printing_value(VALUE))
+#define Print(VALUE) Serial.print(Platform::to_printing_value(VALUE))
 #define Println(VALUE) Serial.println(Platform::to_printing_value(VALUE))
 #define PrintCommand(VALUE) \
     Serial.print(">> ");    \
+    Serial.println(Platform::to_printing_value(VALUE))
+
+#define PrintMessage(VALUE)               \
+    Serial.print(">> (FROM PLATFORM): "); \
     Serial.println(Platform::to_printing_value(VALUE))
 
 #define ALLOC_TO_MEM PROGMEM
@@ -81,12 +114,13 @@
     Println(STRING)
 #endif
 
-#define PRETTY_ERROR(S, W) String(STR("======================================================\n" \
-                                      "ERROR:\n"                                                 \
-                                      "\tdescription: ") +                                       \
-                                  String(S) + STR("\n"                                           \
-                                                  "\tstack: \n"                                  \
-                                                  "\t.\t internal: PLATFORM " #W))
+#define PRETTY_ERROR(S) String(STR("======================================================\n" \
+                                   "ERROR:\n"                                                 \
+                                   "\tdescription: ") +                                       \
+                               String(S) + STR("\n"                                           \
+                                               "\tstack: \n"                                  \
+                                               "\t.\t internal: PLATFORM ") +                 \
+                               __PRETTY_FUNCTION__)
 
 #define ADD_STACK_PLATFORM(E, CPU)                                                \
     String(E + STR("\n"                                                           \
@@ -107,6 +141,7 @@
         .c_str()
 
 #else
+#define YIELD
 #define STR(string_literal) string_literal
 #define Print(VALUE) std::cout << Platform::to_printing_value(VALUE);
 #define Println(VALUE) std::cout << Platform::to_printing_value(VALUE) << std::endl;
@@ -130,12 +165,13 @@
     PRINT_FUNC_INFO           \
     std::cout << STRING << std::endl;
 
-#define PRETTY_ERROR(S, W) std::string(STR("======================================================\n" \
-                                           "ERROR:\n"                                                 \
-                                           "\tdescription: ") +                                       \
-                                       std::string(S) + STR("\n"                                      \
-                                                            "\tstack: \n"                             \
-                                                            "\t.\t internal: PLATFORM " #W))
+#define PRETTY_ERROR(S) std::string(STR("======================================================\n" \
+                                        "ERROR:\n"                                                 \
+                                        "\tdescription: ") +                                       \
+                                    std::string(S) + STR("\n"                                      \
+                                                         "\tstack: \n"                             \
+                                                         "\t.\t internal: PLATFORM ") +            \
+                                    __PRETTY_FUNCTION__)
 
 #define ADD_STACK_PLATFORM(E, CPU)                                                     \
     std::string(E + STR("\n"                                                           \
@@ -215,7 +251,7 @@ namespace Platform
 
 #else
 
-    std::string &to_string(const std::string &s)
+    std::string to_string(const std::string &s)
     {
         return s;
     }
@@ -247,6 +283,7 @@ namespace Platform
             DECLARE_INIT(int8_t, execution, NORMAL_EXECUTION);
         }
 
+#ifdef ARDUINO
         namespace Data
         {
             struct IPort
@@ -259,15 +296,29 @@ namespace Platform
 
             DECLARE_INIT(int8_t, ID, -1);
         }
+#else
+        namespace Data
+        {
+            struct IPort
+            {
+                std::string ip;
+                uint16_t port;
+            };
+
+            std::ifstream file;
+
+            DECLARE_INIT(int8_t, ID, -1);
+        }
+#endif
 
         namespace Interpreter
         {
 
-#define E(S, W) Platform::Base::Interpreter::Error( \
-    Platform::to_printing_value(PRETTY_ERROR(Platform::to_printing_value(S), W)), pcb->getLineNumber_s(), pcb->getCurrentLine())
+#define E(S) Platform::Base::Interpreter::Error( \
+    Platform::to_printing_value(PRETTY_ERROR(Platform::to_printing_value(S))), pcb->getLineNumber_s(), pcb->getCurrentLine())
 
-#define EPCB(S, W) Platform::Base::Interpreter::Error( \
-    Platform::to_printing_value(PRETTY_ERROR(Platform::to_printing_value(S), W)), getLineNumber_s(), getCurrentLine())
+#define EPCB(S) Platform::Base::Interpreter::Error( \
+    Platform::to_printing_value(PRETTY_ERROR(Platform::to_printing_value(S))), getLineNumber_s(), getCurrentLine())
 
             struct Error
             {

@@ -9,6 +9,15 @@ namespace Platform
     Platform::Modules::Interpreter interpreter;
 }
 
+void halt()
+{
+    Println(STR("going to halt state..."));
+    while (true)
+    {
+        delay(10000);
+    }
+}
+
 void setup()
 {
     delay(2000);
@@ -24,25 +33,14 @@ void setup()
     }
 
     Platform::NetworkNode::initialize();
-    Platform::Base::Data::file = SD.open(STR("./source.pt"), "r+");
-    Platform::interpreter.initialize(&Platform::Base::Data::file);
 }
 
 void loop()
 {
-    if (!Platform::Base::Data::file)
+    if (Platform::Base::Data::ID == 0)
+        Platform::HTTP::server->handleClient();
+    else
     {
-        Println(STR("Failed to open file for reading"));
-        return;
-    }
-
-    while (Platform::Base::Data::file.available())
-    {
-        Platform::interpreter.run_command(Platform::FileManager::readLine(Platform::Base::Data::file));
-    }
-
-    if (!Platform::Base::Data::file.available())
-    {
-        Platform::interpreter.exit();
+        // Platform::HTTP::request();
     }
 }

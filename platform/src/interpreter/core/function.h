@@ -124,7 +124,7 @@ public:
         }
 
         if(interpreter->_functions.find(name) == interpreter->_functions.end())
-            LLCore::terminateExecution(E(name + " is undefined!", loadValueToItsStack));
+            LLCore::terminateExecution(E(name + " is undefined!"));
 
 
         auto& fn = interpreter->_functions[name];
@@ -133,14 +133,14 @@ public:
         if(fn->params.size() != params.size())
             LLCore::terminateExecution(E("You Passed " +
                                      std::to_string(params.size()) + " arguments but need " +
-                                     std::to_string(fn->params.size()), loadValueToItsStack));
+                                     std::to_string(fn->params.size())));
 
         size_t sz = params.size();
         for(size_t i = 0; i < sz; i++){
             if(params[i].first != fn->params[i].first){
                 LLCore::terminateExecution(E("You Passed Parameter " + params[i].second + " with " +
                                          interpreter->enumTypeToStringType(params[i].first)+ " type that is incompatible with  " +
-                                         interpreter->enumTypeToStringType(fn->params[i].first), loadValueToItsStack));
+                                         interpreter->enumTypeToStringType(fn->params[i].first)));
             }
 
             interpreter->_refs.insert({interpreter->scopizeName(fn->params[i].second, {pcb->scope.first + 1, pcb->scope.second}),
@@ -167,7 +167,7 @@ public:
         // generate expression to solve
         std::string &ln = fn->invokeLine;
         size_t index = ln.find(pcb->getLastInvokedFn());
-        auto e = E("Invalid Data Type", changeVariable);
+        auto e = E("Invalid Data Type");
 
         switch (fn->type) {
         case LLCore::DTS::Int:

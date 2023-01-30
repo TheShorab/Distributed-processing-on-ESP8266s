@@ -23,6 +23,9 @@ class Variable;
 struct PCBManager;
 struct PCB;
 struct FunctionType;
+struct BranchType;
+class BranchTo;
+class Dispatcher;
 
 class LLCore
 {
@@ -34,6 +37,8 @@ class LLCore
     friend class Variable;
     friend class IfElseBlock;
     friend struct PCBManager;
+    friend class BranchTo;
+    friend class Dispatcher;
 
 public:
     typedef std::pair<std::string, std::any> TypedValue;
@@ -43,8 +48,10 @@ public:
         FN,
         IF,
         ELSE,
-        LOOP
+        LOOP,
+        BRANCH
     };
+
     enum class BOPS
     {
         EQ,
@@ -54,6 +61,7 @@ public:
         LT,
         NEQ
     };
+
     enum class DTS
     {
         InValid,
@@ -64,6 +72,7 @@ public:
         F32,
         F64
     };
+
     enum class KWS
     {
         Declare,
@@ -77,7 +86,9 @@ public:
         Invoke,
         Delete,
         Print,
-        Paav
+        Paav,
+        Dispatch,
+        Use
     };
 
 public:
@@ -91,13 +102,36 @@ public:
     {
         Print(e.cause());
         Print(EXF);
-        exit(0);
+        pause();
+#ifdef ARDUINO
+        // exit(0);
+#else
+        std::exit(0);
+#endif
     }
 
     INDEPENDENT void print(const std::string &command)
     {
         std::string name = trim_copy(command);
         PrintCommand("The value of " + name + " -> " + std::to_string(accessVariable(name)));
+    }
+
+    INDEPENDENT void printAll()
+    {
+        for (auto &[key, value] : _values)
+        {
+            PrintCommand("The value of " + key + " -> " + std::to_string(accessVariable(key.substr(0, key.find(':')))));
+        }
+
+        for (auto &[key, value] : _functions)
+        {
+            PrintCommand("There a function: " + key);
+        }
+
+        for (auto &[key, value] : _branches)
+        {
+            PrintCommand("There a branch: " + key);
+        }
     }
 
     INDEPENDENT std::string scopizeName(const std::string &name, const Scope &scope)
@@ -140,11 +174,6 @@ public:
         return {word, index};
     }
 
-    //    void checkDataTypeOnOperation(int n, ...);
-    //    std::any stringToTypedAny(const std::string &type, const std::string &value);
-    //    void variableAndTypeNameValidator(const std::string &name);
-    //    std::string enumTypeToStringType(DTS dt);
-
     INDEPENDENT void printValues()
     {
         for (const auto &[key, value] : _values)
@@ -171,7 +200,7 @@ public:
     INDEPENDENT KWS keywordStringTokeywordEnum(const std::string &type)
     {
         std::map<std::string, KWS> keywords =
-            {{"declare", KWS::Declare}, {"branch_to", KWS::BranchTo}, {"function", KWS::Function}, {"return", KWS::Return}, {"if", KWS::If}, {"else", KWS::Else}, {"print", KWS::Print}, {"syscall", KWS::Syscall}, {"invoke", KWS::Invoke}, {"delete", KWS::Delete}, {"loop", KWS::Loop}, {"paav", KWS::Paav}};
+            {{"declare", KWS::Declare}, {"branch_to", KWS::BranchTo}, {"function", KWS::Function}, {"return", KWS::Return}, {"if", KWS::If}, {"else", KWS::Else}, {"print", KWS::Print}, {"syscall", KWS::Syscall}, {"invoke", KWS::Invoke}, {"delete", KWS::Delete}, {"loop", KWS::Loop}, {"paav", KWS::Paav}, {"dispatch", KWS::Dispatch}, {"use", KWS::Use}};
 
         return keywords[type];
     }
@@ -283,6 +312,12 @@ public:
         return !isNumber(string);
     }
 
+    INDEPENDENT bool isDeclaredVariable(const std::string &name)
+    {
+        checkAccessToVariableAndScopizeName(name);
+        return true;
+    }
+
     INDEPENDENT bool isLvalueFloat(const std::string &string)
     {
         return (string.find(".") != std::string::npos);
@@ -311,6 +346,31 @@ public:
         return std::stod(number);
     }
 
+    void static pause()
+    {
+        running = false;
+    }
+
+    bool static isRunning()
+    {
+        return running;
+    }
+
+    void static setRunning(bool state)
+    {
+        running = state;
+    }
+
+    void static exit()
+    {
+        exited = true;
+    }
+
+    bool static isExited()
+    {
+        return exited;
+    }
+
     void variableAndTypeNameValidator(const std::string &name);
     std::string enumTypeToStringType(DTS dt);
     void checkDataTypeOnOperation(int n, ...);
@@ -323,7 +383,10 @@ private:
     /// first: name of value, second: Value Pair
     std::map<std::string, TypedValue> _values;
     std::map<std::string, std::string> _refs;
+    std::map<std::string, BranchType *> _branches;
     std::map<std::string, FunctionType *> _functions;
+    static bool running;
+    static bool exited;
 
 #if defined(ARDUINO)
     File *file;
@@ -331,6 +394,10 @@ private:
     std::ifstream *file;
 #endif
 };
+
+/* ========================                 ========================
+ * ========================       PCB       ========================
+ * ========================                 ======================== */
 
 struct PCBManager;
 struct PCB
@@ -345,11 +412,13 @@ private:
     size_t _lineNumber = 1;
     bool _condition = false;
     bool _withinFnDeclaration = false;
+    bool _withinBranch = false;
 
     MAYBE_UNUSED void *_loop = nullptr;
     MAYBE_UNUSED size_t _curlyBraces = 0;
     MAYBE_UNUSED size_t _invokeLineNumber = 0;
 
+    std::string _lastBranch;
     std::string _currentLine;
     std::stack<size_t> _retAdds;
     std::stack<Scope> _blockedScopes;
@@ -360,7 +429,7 @@ private:
 public:
     INDEPENDENT void checkScopeCompatiblity(const std::string &name)
     {
-        auto e = EPCB("Invalid Variable Access! different scops.", checkScopeCompatiblity);
+        auto e = EPCB("Invalid Variable Access! different scops.");
         const Scope &scope = scopeFromName(name);
         if (this->scope.first < scope.first)
             LLCore::terminateExecution(e);
@@ -376,7 +445,7 @@ public:
                 LLCore::terminateExecution(e);
         }
 
-        LLCore::terminateExecution(EPCB("Undefined Behavior! function -> accessVariable, args -> " + name, checkScopeCompatiblity));
+        LLCore::terminateExecution(EPCB("Undefined Behavior! function -> accessVariable, args -> " + name));
     }
 
     INDEPENDENT Scope scopeFromName(const std::string &name) const noexcept
@@ -422,6 +491,9 @@ public:
 
     INDEPENDENT void setWithinFunctionCall(bool newWithinFunctionCall)
     {
+        if (!newWithinFunctionCall && _blocks.empty())
+            return;
+
         newWithinFunctionCall ? _blocks.push(LLCore::BLOCKS::FN) : _blocks.pop();
     }
 
@@ -434,6 +506,9 @@ public:
 
     INDEPENDENT void setWithinIfBlock(bool newWithinIfBlock)
     {
+        if (!newWithinIfBlock && _blocks.empty())
+            return;
+
         newWithinIfBlock ? _blocks.push(LLCore::BLOCKS::IF) : _blocks.pop();
     }
 
@@ -446,6 +521,9 @@ public:
 
     INDEPENDENT void setWithinElseBlock(bool newWithinElseBlock)
     {
+        if (!newWithinElseBlock && _blocks.empty())
+            return;
+
         newWithinElseBlock ? _blocks.push(LLCore::BLOCKS::ELSE) : _blocks.pop();
     }
 
@@ -456,20 +534,37 @@ public:
         return _blocks.top() == LLCore::BLOCKS::LOOP;
     }
 
-    INDEPENDENT void setWithinLoopBlock(bool newWithinLoopBlock)
+    INDEPENDENT void setWithinLoopBlock(bool state)
     {
-        newWithinLoopBlock ? _blocks.push(LLCore::BLOCKS::LOOP) : _blocks.pop();
+        if (!state && _blocks.empty())
+            return;
+
+        state ? _blocks.push(LLCore::BLOCKS::LOOP) : _blocks.pop();
+    }
+
+    INDEPENDENT bool isWithinBranchBlock() const
+    {
+        return _withinBranch;
+    }
+
+    INDEPENDENT void setWithinBranchBlock(bool state)
+    {
+        _withinBranch = state;
     }
 
     INDEPENDENT bool isRunAllowed() const
     {
-        if (isWithinFunctionDeclaration())
+        if (isWithinFunctionDeclaration() || isWithinBranchBlock())
             return false;
+
         if (_blockedScopes.empty())
             return true;
+
         auto &blockedScope = _blockedScopes.top();
+
         if (blockedScope.first <= scope.first)
             return false;
+
         return true;
     }
 
@@ -613,6 +708,9 @@ public:
     }
 };
 
+bool LLCore::running = false;
+bool LLCore::exited = false;
+
 inline LLCore::LLCore()
     : pcb(new PCB), file()
 {
@@ -642,7 +740,7 @@ std::string LLCore::checkAccessToVariableAndScopizeName(const std::string &name)
             {
                 if (n == names.back())
                 {
-                    LLCore::terminateExecution(E(name + " is undefined!", checkAccessToVariableAndScopizeName));
+                    LLCore::terminateExecution(E(name + " is undefined!"));
                 }
             }
             else
@@ -664,7 +762,7 @@ double LLCore::accessVariable(const std::string &name)
     if (isNumber(name))
         return toDouble(name);
 
-    auto e = E("Invalid Data Type :: variable name : " + name, accessVariable);
+    auto e = E("Invalid Data Type :: variable name : " + name);
     auto v = _values[checkAccessToVariableAndScopizeName(name)];
 
     switch (stringTypeToEnumType(v.first))
@@ -704,13 +802,12 @@ void LLCore::variableAndTypeNameValidator(const std::string &name)
     for (auto &c : name)
         if (invalidChars.find(c) != std::string::npos)
             terminateExecution(E(
-                "you use invalid chars to define your variable name or use an invalid type name!",
-                variableAndTypeNameValidator));
+                "you use invalid chars to define your variable name or use an invalid type name!"));
 }
 
 std::string LLCore::enumTypeToStringType(DTS dt)
 {
-    auto e = E("Invalid Data Type", booleanOperation);
+    auto e = E("Invalid Data Type");
     switch (dt)
     {
     case DTS::Int:
@@ -743,8 +840,7 @@ void LLCore::checkDataTypeOnOperation(int n, ...)
 
     std::string defType = va_arg(pointer, char *);
     auto e = E("Operatiorn of Incompatible Data types, all operands must have " +
-                   defType + " data type in this expression.",
-               checkDataTypeOnOperation);
+               defType + " data type in this expression.");
 
     for (int i = 1; i < n; i++)
     {

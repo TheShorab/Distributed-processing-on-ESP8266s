@@ -6,21 +6,18 @@
 #include "../core/if-else.h"
 #include "../core/loop.h"
 #include "../core/variable.h"
+#include "../core/branch-to.h"
 
-class FrontEnd : Core
+class FrontEnd : public Core
 {
 
 public:
-    FrontEnd()
+
+    CONSTRUCTOR FrontEnd()
     {
     }
 
-    FrontEnd(const std::string &fileName) : Core(fileName)
-    {
-        start();
-    }
-
-    ~FrontEnd()
+    DESTRUCTOR ~FrontEnd()
     {
         for (const auto &[key, value] : _functions)
         {
@@ -57,9 +54,34 @@ public:
 
     FN_ATTRIBUTES(INLINE INDEPENDENT)
     FN_RETURN_TYPE(void)
+    FN_NAME start()
+    {
+        LLCore::setRunning(true);
+        run();
+    }
+
+    FN_ATTRIBUTES(INLINE INDEPENDENT)
+    FN_RETURN_TYPE(void)
+    FN_NAME resume()
+    {
+        start();
+    }
+
+    FN_ATTRIBUTES(INLINE INDEPENDENT)
+    FN_RETURN_TYPE(void)
     FN_NAME runOneCommand(const std::string &line)
     {
-        DEBUG_PRINT(line);
+        YIELD
+
+        // DEBUG_PRINTLN(line);
+
+        if (!LLCore::isRunning())
+        {
+            PRINT_FUNC_INFO;
+            Println("Execution is blocked.");
+            return;
+        }
+
         const auto index = line.find(':');
         std::string keyword = "";
         std::string command = line;
@@ -79,34 +101,19 @@ public:
             runCommand(keyword, command);
     }
 
-    void initFile(File *newFile)
+    FN_ATTRIBUTES(INDEPENDENT)
+    FN_RETURN_TYPE(void)
+    FN_NAME addExternalVariable(const std::string& name, double value)
     {
-        file = newFile;
-    }
-
-    void start()
-    {
-        running = true;
-        run();
-    }
-
-    void pause()
-    {
-        running = false;
-    }
-
-    void resume()
-    {
-        start();
+        _values[name] = {"double", value};
     }
 
 private:
+
     FN_ATTRIBUTES(INLINE INDEPENDENT)
     FN_RETURN_TYPE(void)
     FN_NAME runCommand(const std::string &keyword, const std::string &command)
     {
-        //        DEBUG_PRINT(keyword + command);
-
         std::string copy = trim_copy(command);
 
         if (keyword.empty())
@@ -116,19 +123,17 @@ private:
             {
                 Variable(this).assignment(copy, index);
             }
-
-            //            terminateExecution(E("Invalid Command.", runCommand));
         }
         else
         { // keyword
-            auto e = E("Invalid Keyword Usage.", runCommand);
+            auto e = E("Invalid Keyword Usage.");
 
             if (keyword == "///")
                 return;
 
             switch (keywordStringTokeywordEnum(keyword))
             {
-            case KWS::BranchTo:
+            case KWS::BranchTo: BranchTo(this).declare(command);
                 break;
             case KWS::Declare:
                 Variable(this).declare(command);
@@ -159,7 +164,13 @@ private:
                 LLCore::print(command);
                 break;
             case KWS::Paav:
-                LLCore::print(command);
+                LLCore::printAll();
+                break;
+            case KWS::Dispatch:
+                LLCore::printAll();
+                break;
+            case KWS::Use:
+                LLCore::printAll();
                 break;
 
             default:
@@ -167,15 +178,26 @@ private:
                 break;
             }
         }
-
-        return;
     }
 
+/* ========================                 ========================
+ * ======================== Windows VERSION ========================
+ * ========================                 ======================== */
 #ifndef ARDUINO
-    void run()
+
+public:
+
+    CONSTRUCTOR FrontEnd(const std::string &fileName) : Core(fileName), filename(fileName)
+    {
+        start();
+    }
+
+    FN_ATTRIBUTES(INLINE INDEPENDENT)
+    FN_RETURN_TYPE(void)
+    FN_NAME run()
     {
         file->close();
-        file->open(fileName, std::fstream::in);
+        file->open(filename, std::fstream::in);
 
         if (!file->is_open())
         {
@@ -194,6 +216,13 @@ private:
             runOneCommand(line);
         }
     }
+
+private:
+    std::string filename;
+
+/* ========================                 ========================
+ * ======================== ARDUINO VERSION ========================
+ * ========================                 ======================== */
 #else
     void run()
     {
@@ -207,7 +236,10 @@ private:
         while (file->peek() != -1)
         {
             if (!running)
+            {
+                Println(STR("Execution Paused."));
                 break;
+            }
 
             for (char ch = (char)file->read(); file->available() && ch != '\n'; ch = (char)file->read())
                 line.push_back(ch);
@@ -215,10 +247,15 @@ private:
             runOneCommand(line);
         }
     }
+
+public:
+    void initFile(File *newFile)
+    {
+        file = newFile;
+    }
+
 #endif
 
-private:
-    bool running = false;
 };
 
 #endif // FRONTEND_H

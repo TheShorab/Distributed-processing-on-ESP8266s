@@ -111,11 +111,17 @@ namespace Platform
             if (Base::Data::ID == 0)
             {
                 make_access_point(generate_access_point_info());
+                Platform::Server::launch(NetworkNode::wifi_ip());
+                WiFi.onSoftAPModeStationDisconnected(Platform::HTTP::disconnect_handler);
+                // WiFi.onEvent([](WiFiEvent ev)
+                //              {
+                //                     Print(STR("WiFi event: "));
+                //                     Println(String(ev)); });
                 return;
             }
 
             connect_to_wifi(select_access_point());
-            Platform::Server::launch(NetworkNode::parent_ip());
+            Platform::Server::launch(NetworkNode::wifi_ip());
             assign_id(Platform::HTTP::request_id);
 
             delay(1500);

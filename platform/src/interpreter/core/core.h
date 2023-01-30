@@ -27,8 +27,7 @@ public:
 
         std::string defType = va_arg(pointer, char*);
         auto e = E("Operatiorn of Incompatible Data types, all operands must have " +
-                       defType + " data type in this expression.",
-                   checkDataTypeOnOperation);
+                       defType + " data type in this expression.");
 
         for(int i = 1; i < n; i++){
             std::string tmp = va_arg(pointer, char*);
@@ -41,7 +40,7 @@ public:
     std::any stringToTypedAny(const std::string &type, const std::string &value)
     {
         double v = ExpressionSolver(value, this).result();
-        auto e = E("Invalid Data Type :: variable type : " + type, stringToTypedAny);
+        auto e = E("Invalid Data Type :: variable type : " + type);
 
         switch(stringTypeToEnumType(type)){
         case DTS::Int: return static_cast<int>(v);

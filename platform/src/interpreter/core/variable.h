@@ -31,8 +31,7 @@ public:
 
         if(typeName.size() != 2)
             LLCore::terminateExecution(E(
-                "invalid instruction, in a line of patrick code, you can create only one variable!",
-                nameAndType));
+                "invalid instruction, in a line of patrick code, you can create only one variable!"));
 
         if(scopize) return {typeName[0], interpreter->scopizeName(typeName[1], interpreter->pcb->scope)};
 
@@ -85,7 +84,7 @@ public:
         interpreter->checkValue(value);
         auto& v = interpreter->_values[checkAccessToVariableAndScopizeName(name)];
         auto& pcb = interpreter->pcb;
-        auto e = E("Invalid Data Type :: variable name : " + name, changeVariable);
+        auto e = E("Invalid Data Type :: variable name : " + name);
 
         switch(interpreter->stringTypeToEnumType(v.first)){
         case LLCore::DTS::Int:
@@ -121,7 +120,7 @@ public:
     {
         auto& v = interpreter->_values[checkAccessToVariableAndScopizeName(name)];
         auto& pcb = interpreter->pcb;
-        auto e = E("Invalid Data Type :: variable name : " + name, changeVariable);
+        auto e = E("Invalid Data Type :: variable name : " + name);
 
         switch(interpreter->stringTypeToEnumType(v.first)){
         case LLCore::DTS::Int:

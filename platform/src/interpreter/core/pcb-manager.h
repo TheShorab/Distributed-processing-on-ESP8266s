@@ -6,6 +6,7 @@
 #include "if-else.h"
 #include "variable.h"
 #include "loop-state.h"
+#include "branch-to-state.h"
 
 struct PCBManager
 {
@@ -17,6 +18,7 @@ public:
 
     void manager(const std::string &kw, const std::string &line, bool file = false)
     {
+        YIELD
         if (!file)
         {
             interpreter->pcb->nextLineNumber();
@@ -31,10 +33,12 @@ public:
 
     void scopeManager(const std::string &kw, const std::string &line)
     {
+        YIELD
+
         auto &pcb = interpreter->pcb;
         pcb->setCurrentLine(line);
 
-        if (!pcb->isWithinFunctionDeclaration())
+        if (!pcb->isWithinFunctionDeclaration() || !pcb->isWithinBranchBlock())
         {
             if (kw == "ivoke")
             {
@@ -53,12 +57,11 @@ public:
 
             if (kw == "loop")
             {
-                // pcb->scope.second++
-                pcb->scope++;
                 pcb->setWithinLoopBlock(true);
             }
         }
 
+        YIELD
         if (line.find('{') != std::string::npos)
         {
             if (pcb->isWithinLoopBlock())
@@ -66,37 +69,43 @@ public:
                 IfElseBlock(loop()->generateBoolExpression(), interpreter);
             }
 
-            if (pcb->isWithinFunctionCall())
-            {
-                DEBUG_PRINT(line);
-            }
-
-            //            pcb->scope.first += 1;
-            ++pcb->scope;
+            ++pcb->scope; //1.1
             pcb->curlyBraces()++;
         }
 
+        YIELD
         if (!pcb->isRunAllowed() && !pcb->isWithinIfBlock() &&
-            !pcb->isWithinElseBlock() && !pcb->isWithinFunctionDeclaration())
+            !pcb->isWithinElseBlock() && !pcb->isWithinFunctionDeclaration() && !pcb->isWithinBranchBlock())
             pcb->freeScope({0, 0});
 
+        YIELD
         if (line.find('}') != std::string::npos)
         {
-            removeVariablesAllocatedInThisScope(interpreter);
+            removeVariablesAllocatedInThisScope(interpreter); //1.1
 
+            YIELD
             if (pcb->isWithinFunctionDeclaration() && (pcb->curlyBraces() - 1) == 0)
             {
                 pcb->setWithinFunctionDeclaration(false);
                 goto end;
             }
 
-            if (pcb->isWithinFunctionCall())
+            if (pcb->isWithinBranchBlock())
+            {
+                branch()->end = pcb->getLineNumber() - 1;
+                pcb->setWithinBranchBlock(false);
+                goto end;
+            }
+
+            YIELD
+            if (pcb->isWithinFunctionCall() && (pcb->curlyBraces() - 1) == 0)
             {
                 pcb->setWithinFunctionCall(false);
                 goTo(pcb->retAdd() + 1, interpreter);
                 goto end;
             }
 
+            YIELD
             if (pcb->isWithinIfBlock())
             {
                 pcb->setWithinIfBlock(false);
@@ -110,6 +119,7 @@ public:
                 goto end;
             }
 
+            YIELD
             if (pcb->isWithinElseBlock())
             {
                 pcb->setWithinElseBlock(false);
@@ -121,6 +131,7 @@ public:
                 goto end;
             }
 
+            YIELD
             if (pcb->isWithinLoopBlock())
             {
                 Variable(interpreter).assignment(loop()->generateIncreaseStartExpression(), 0, true);
@@ -131,15 +142,11 @@ public:
                 }
                 else
                 {
-                    //                    pcb->scope.first--;
                     --pcb->scope;
-                    removeVariablesAllocatedInThisScope(interpreter);
-                    //                    pcb->scope.first++;
-                    ++pcb->scope;
-                    //                    ++pcb->scope; // becuace after end: will decrese again
-                    //                    pcb->scope.second--;
-                    pcb->scope--;
-                    //                    setRunAllowed(true);
+                    removeVariablesAllocatedInThisScope(interpreter); // 0.1
+                    ++pcb->scope; // 1.1
+                    pcb->scope--; // 1.0
+
                     freeLoop();
                     pcb->freeScope(pcb->scope);
                     pcb->setWithinElseBlock(false);
@@ -148,8 +155,7 @@ public:
             }
 
         end:
-            //            pcb->scope.first--;
-            --pcb->scope;
+            --pcb->scope; // 0.0
             pcb->curlyBraces()--;
         }
     }
@@ -157,16 +163,28 @@ public:
 #if defined(ARDUINO)
     void goTo(size_t line, Core *interpreter)
     {
-        interpreter->file->seek(line);
+        size_t seek = 0;
+        interpreter->file->seek(std::ios::beg);
 
-        // for (size_t i = 0; i < line - 1; ++i)
-        // {
-        //     interpreter->file->ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        // }
+        for (size_t i = 0; i < line - 1; ++i)
+        {
+            YIELD
 
+            for (char ch = (char)interpreter->file->read();
+                 interpreter->file->available() && ch != '\n';
+                 ch = (char)interpreter->file->read())
+            {
+                YIELD
+            }
+
+            // interpreter->file->read();
+        }
+
+        // interpreter->file->seek(seek);
         interpreter->pcb->setLineNumber(line);
     }
 #else
+
     void goTo(size_t line, Core *interpreter)
     {
         interpreter->file->seekg(std::ios::beg);
@@ -177,6 +195,7 @@ public:
 
         interpreter->pcb->setLineNumber(line);
     }
+
 #endif
 
     void setLoop(LoopState *loop)
@@ -195,11 +214,29 @@ public:
         interpreter->pcb->_loop = nullptr;
     }
 
+    void setBranch(const std::string &branch)
+    {
+        interpreter->pcb->_lastBranch = branch;
+    }
+
+    BranchType *branch()
+    {
+        return static_cast<BranchType *>(interpreter->_branches[interpreter->pcb->_lastBranch]);
+    }
+
+//    void freeBranch()
+//    {
+//        free(interpreter->pcb->_branch);
+//        interpreter->pcb->_branch = nullptr;
+//    }
+
     void removeVariablesAllocatedInThisScope(Core *interpreter)
     {
+        YIELD
         std::vector<std::string> forErase;
         for (const auto &[key, value] : interpreter->_values)
         {
+            YIELD
             auto const scp = interpreter->pcb->scopeFromName(key);
 
             if (scp.first == interpreter->pcb->scope.first &&
