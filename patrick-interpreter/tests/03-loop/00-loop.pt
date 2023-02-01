@@ -1,5 +1,9 @@
+
+
 declare: lint result = 0 
 loop: lint i = 0 up_to_eq 1000000, step = 1
 {
     result = result + 1
 }
+
+

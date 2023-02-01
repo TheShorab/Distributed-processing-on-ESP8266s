@@ -12,7 +12,6 @@ class FrontEnd : public Core
 {
 
 public:
-
     CONSTRUCTOR FrontEnd()
     {
     }
@@ -103,19 +102,17 @@ public:
 
     FN_ATTRIBUTES(INDEPENDENT)
     FN_RETURN_TYPE(void)
-    FN_NAME addExternalVariable(const std::string& name, double value)
+    FN_NAME addExternalVariable(const std::string &name, double value)
     {
         _values[name] = {"double", value};
     }
 
 private:
-
     FN_ATTRIBUTES(INLINE INDEPENDENT)
     FN_RETURN_TYPE(void)
     FN_NAME runCommand(const std::string &keyword, const std::string &command)
     {
         std::string copy = trim_copy(command);
-
         if (keyword.empty())
         {
             const auto index = copy.find('=');
@@ -133,7 +130,8 @@ private:
 
             switch (keywordStringTokeywordEnum(keyword))
             {
-            case KWS::BranchTo: BranchTo(this).declare(command);
+            case KWS::BranchTo:
+                BranchTo(this).declare(command);
                 break;
             case KWS::Declare:
                 Variable(this).declare(command);
@@ -186,7 +184,6 @@ private:
 #ifndef ARDUINO
 
 public:
-
     CONSTRUCTOR FrontEnd(const std::string &fileName) : Core(fileName), filename(fileName)
     {
         start();
@@ -255,7 +252,6 @@ public:
     }
 
 #endif
-
 };
 
 #endif // FRONTEND_H

@@ -1,12 +1,47 @@
-declare: int number = 10
-
-loop: int i = 0 up_to number, step = 1
+function: pow(llint base, int exponent) llint 
 {
-    branch_to: i as thread__i
-    {  
+    declare: llint result = 1
+
+    loop: int i = 0 up_to exponent, step = 1 
+    {
+        result = result * base
     }
+
+    return: result
 }
 
-paav:
+declare: llint result = 0
+declare: llint base = 2
+declare: int exponent = 3
 
-dispatch: thread_0
+invoke: result = pow(base, exponent)
+
+print: result
+
+if: CPU_ID == 0
+{
+    loop: int i = 1 up_to CPUS, step = 1 
+    {
+        branch_to: i as branch__i
+        {
+            loop: int j = i * 1000 up_to j + 1000, step = 1 
+            {
+                result = result + result
+            }
+        }
+        dispatch: branch__i
+    }
+} 
+
+loop: int i = 1 up_to CPUS, step = 1 
+{
+    dispatch: branch__i
+}
+
+loop: int i = 0 up_to 1000, step = 1 
+{
+    result = result + result
+}
+
+collect: branch__1
+

@@ -85,8 +85,8 @@
 #define STR(string_literal) F(string_literal)
 #define Print(VALUE) Serial.print(Platform::to_printing_value(VALUE))
 #define Println(VALUE) Serial.println(Platform::to_printing_value(VALUE))
-#define PrintCommand(VALUE) \
-    Serial.print(">> ");    \
+#define PrintCommand(VALUE)              \
+    Serial.print(">> (FROM PATRICK): "); \
     Serial.println(Platform::to_printing_value(VALUE))
 
 #define PrintMessage(VALUE)               \
@@ -120,7 +120,7 @@
                                String(S) + STR("\n"                                           \
                                                "\tstack: \n"                                  \
                                                "\t.\t internal: PLATFORM ") +                 \
-                               __PRETTY_FUNCTION__)
+                               String(__PRETTY_FUNCTION__))
 
 #define ADD_STACK_PLATFORM(E, CPU)                                                \
     String(E + STR("\n"                                                           \
@@ -205,11 +205,6 @@
 
 #define NORMAL_EXECUTION 0
 #define FORCE_SINGLE_CORE 1
-
-#define WEB_SERVER_PORT 80
-#define UDP_PORT 443
-#define TCP_PORT 88
-#define NOW_PORT
 
 #define EXF                                                        \
     STR("\n\n"                                                     \
@@ -347,7 +342,22 @@ namespace Platform
             Println(ADD_STACK_PLATFORM(Platform::to_string(e), TO_STRING(Base::Data::ID)));
             Println(EXF);
         }
+
+        namespace Branch
+        {
+            bool isOnBranch = false;
+            bool isResultReady = false;
+            bool isReadyToExecute = false;
+            double result;
+            std::vector<std::string> branchCode;
+        }
     }
 }
+
+#define WEB_SERVER_PORT Platform::Base::Data::ID == 0 ? 8080 : 80
+#define WEB_CLIENT_PORT Platform::Base::Data::ID == 0 ? 80 : 8080
+#define UDP_PORT 443
+#define TCP_PORT 88
+#define NOW_PORT
 
 #endif

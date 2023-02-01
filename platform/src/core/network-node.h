@@ -97,6 +97,7 @@ namespace Platform
         FN_NAME assign_id(GetIDRequestFunction cb)
         {
             String new_id = cb(parent_ip());
+            PrintMessage(STR("The Allocated Id is: ") + new_id);
             Base::Data::ID = new_id.toInt();
         }
 
@@ -106,10 +107,9 @@ namespace Platform
         {
             delay(500);
 
-            WiFi.mode(WIFI_AP_STA);
-
             if (Base::Data::ID == 0)
             {
+                WiFi.mode(WiFiMode::WIFI_AP);
                 make_access_point(generate_access_point_info());
                 Platform::Server::launch(NetworkNode::wifi_ip());
                 WiFi.onSoftAPModeStationDisconnected(Platform::HTTP::disconnect_handler);
@@ -120,6 +120,7 @@ namespace Platform
                 return;
             }
 
+            WiFi.mode(WiFiMode::WIFI_STA);
             connect_to_wifi(select_access_point());
             Platform::Server::launch(NetworkNode::wifi_ip());
             assign_id(Platform::HTTP::request_id);

@@ -30,6 +30,9 @@ void setup()
     if (sd_init_res)
     {
         Platform::Base::Data::ID = 0;
+        Platform::FileManager::listDir("/", 0);
+        Platform::Base::Data::file = SD.open(STR("/source.pt"), "r+");
+        Platform::interpreter.initialize(&Platform::Base::Data::file);
     }
 
     Platform::NetworkNode::initialize();
@@ -37,10 +40,5 @@ void setup()
 
 void loop()
 {
-    if (Platform::Base::Data::ID == 0)
-        Platform::HTTP::server->handleClient();
-    else
-    {
-        // Platform::HTTP::request();
-    }
+    Platform::HTTP::server->handleClient();
 }

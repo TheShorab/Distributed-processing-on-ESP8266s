@@ -6,6 +6,7 @@
 
 #ifdef ARDUINO
 #include "../../core/file-manager.h"
+#include "../../core/server/http.h"
 #endif
 
 class Dispatcher
@@ -25,6 +26,8 @@ public:
         {
             if (!threadExists(thread))
                 LLCore::terminateExecution(E("Invalid Branch name!"));
+
+            dispatch(getThread(thread));
         }
     }
 
@@ -33,18 +36,27 @@ private:
     FN_RETURN_TYPE(void)
     FN_NAME dispatch(BranchType *branch)
     {
+        auto &pcb = core->pcb;
         auto manager = PCBManager(_interpreter);
         manager.goTo(branch->start, _interpreter);
+        auto mac = Platform::HTTP::children_ref.at(branch->destination);
+        auto cpu = Platform::HTTP::children->at(mac);
+        String response = Platform::HTTP::start_branch(cpu.ip);
 
-        for (unsigned int i = branch->start; i <= branch->end; i++)
+        if (response[0] == '+')
         {
-            std::string line = Platform::FileManager::readLine(*_interpreter->file);
-            /**
-             * 1- send start signal to destination cpu: prepare fro branching
-             * 2- wait for a response: im ready! send that fucking code
-             * 3- send other lines of code
-             * 4- at the end, send finish signal.
-             */
+            for (unsigned int i = branch->start; i <= branch->end; i++)
+            {
+                std::string line = Platform::FileManager::readLine(*_interpreter->file);
+                Platform::HTTP::branch_data(cpu.ip);
+            }
+
+            Platform::HTTP::end_branch(cpu.ip);
+        }
+        else
+        {
+            PrintCommand(STR("CPU ID = ") + String(cpu.id) + STR(" CPU IP = ") + cpu.ip);
+            LLCore::terminateExecution(E("Destination CPU is in use! Branch Failed"))
         }
     }
 

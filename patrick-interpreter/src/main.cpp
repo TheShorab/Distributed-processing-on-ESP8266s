@@ -34,7 +34,9 @@
 int main(int argc, char *argv[])
 {
     Platform::Modules::Interpreter
-        interpreter("F:/UT/Term 1/Computer Achitecture/Project/Distributed-processing-on-ESP8266s/patrick-interpreter/tests/06-branch-to/00-branches.pt");
+        interpreter("F:\\UT\\Term 1\\Computer Achitecture\\Project\\Distributed-processing-on-ESP8266s\\patrick-interpreter\\tests\\04-functions\\00-function.pt");
+
+//    Platform::Modules::Interpreter interpreter(argc, argv);
 
 }
 

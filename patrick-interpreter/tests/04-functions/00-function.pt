@@ -17,3 +17,7 @@ declare: int exponent = 3
 
 invoke: result = pow(base, exponent)
 print: result
+paav:
+
+
+

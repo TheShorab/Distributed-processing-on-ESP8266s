@@ -38,7 +38,7 @@ public:
         auto &pcb = interpreter->pcb;
         pcb->setCurrentLine(line);
 
-        if (!pcb->isWithinFunctionDeclaration() || !pcb->isWithinBranchBlock())
+        if (!pcb->isWithinFunctionDeclaration() && !pcb->isWithinBranchBlock())
         {
             if (kw == "ivoke")
             {
@@ -69,7 +69,7 @@ public:
                 IfElseBlock(loop()->generateBoolExpression(), interpreter);
             }
 
-            ++pcb->scope; //1.1
+            ++pcb->scope; // 1.1
             pcb->curlyBraces()++;
         }
 
@@ -81,12 +81,14 @@ public:
         YIELD
         if (line.find('}') != std::string::npos)
         {
-            removeVariablesAllocatedInThisScope(interpreter); //1.1
+            removeVariablesAllocatedInThisScope(interpreter); // 1.1
 
             YIELD
-            if (pcb->isWithinFunctionDeclaration() && (pcb->curlyBraces() - 1) == 0)
+            if (pcb->isWithinFunctionDeclaration())
             {
-                pcb->setWithinFunctionDeclaration(false);
+                if ((pcb->curlyBraces() - 1) == 0)
+                    pcb->setWithinFunctionDeclaration(false);
+
                 goto end;
             }
 
@@ -144,8 +146,8 @@ public:
                 {
                     --pcb->scope;
                     removeVariablesAllocatedInThisScope(interpreter); // 0.1
-                    ++pcb->scope; // 1.1
-                    pcb->scope--; // 1.0
+                    ++pcb->scope;                                     // 1.1
+                    pcb->scope--;                                     // 1.0
 
                     freeLoop();
                     pcb->freeScope(pcb->scope);
@@ -224,11 +226,11 @@ public:
         return static_cast<BranchType *>(interpreter->_branches[interpreter->pcb->_lastBranch]);
     }
 
-//    void freeBranch()
-//    {
-//        free(interpreter->pcb->_branch);
-//        interpreter->pcb->_branch = nullptr;
-//    }
+    //    void freeBranch()
+    //    {
+    //        free(interpreter->pcb->_branch);
+    //        interpreter->pcb->_branch = nullptr;
+    //    }
 
     void removeVariablesAllocatedInThisScope(Core *interpreter)
     {
